@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Nextgen Technologies — Internship Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0d1a; --navy:#1a1744; --violet:#4c3bcf; --purple:#6d28d9;
+  --gold:#c9a84c; --gold2:#f0d47a; --cream:#faf8f2; --cream2:#f2efe6;
+  --white:#fff; --rule:#ddd5c0; --muted:#7a7260; --border:#e4dfd0;
+  --green:#1a6e3a; --blue:#1a4fa0; --teal:#0d7a6e; --rose:#b82040;
+  --pink:#a8207a; --cyan:#0a7498; --indigo:#3a36b0; --amber:#8a5500;
+  --lv:#eceaff; --lb:#e4eeff; --lg:#e6f5ec; --la:#fff4e0;
+  --lr:#fde8ec; --lp:#fde4f4; --lc:#e0f6fa; --li:#eaebff;
+  --shadow:0 8px 32px rgba(15,13,26,.08);
+  --shadow-lg:0 20px 60px rgba(15,13,26,.14);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--rule);border-radius:9px}
+button,input,select,textarea{font-family:inherit}
+a{text-decoration:none;color:inherit}
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+@keyframes blink{0%,100%{background:var(--violet)}50%{background:var(--gold)}}
+@keyframes tdot{0%,80%,100%{transform:translateY(0);opacity:.35}40%{transform:translateY(-6px);opacity:1}}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(201,168,76,.2)}50%{box-shadow:0 0 40px rgba(201,168,76,.45)}}
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;height:62px;
+  background:rgba(15,13,26,.96);backdrop-filter:blur(14px);
+  border-bottom:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:space-between;padding:0 5%;
+}
+.n-logo{display:flex;align-items:center;gap:11px}
+.n-box{
+  width:38px;height:38px;border-radius:8px;
+  background:linear-gradient(135deg,var(--violet),var(--navy));
+  border:1.5px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:14px;font-weight:900;color:var(--gold);
+}
+.n-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:800;color:#fff}
+.n-name b{color:var(--gold)}
+.n-links{display:flex;gap:2px;list-style:none}
+.n-links a{
+  color:rgba(255,255,255,.5);font-size:13px;font-weight:500;
+  padding:7px 12px;border-radius:6px;transition:.2s;
+}
+.n-links a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.n-cta{background:var(--gold)!important;color:var(--ink)!important;font-weight:700!important;border-radius:6px}
+.n-cta:hover{background:var(--gold2)!important}
+@media(max-width:768px){.n-links{display:none}}
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+#hero{
+  min-height:100vh;background:var(--ink);
+  display:flex;align-items:center;
+  padding:110px 5% 70px;position:relative;overflow:hidden;
+}
+.h-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 55% at 5% 50%,rgba(76,59,207,.18) 0%,transparent 65%),
+    radial-gradient(ellipse 45% 50% at 90% 80%,rgba(201,168,76,.07) 0%,transparent 60%);
+}
+.h-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);
+  background-size:50px 50px;
+}
+.h-inner{
+  position:relative;z-index:1;max-width:1200px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center;
+}
+@media(max-width:900px){.h-inner{grid-template-columns:1fr}}
+.h-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.28);
+  padding:6px 16px;border-radius:99px;margin-bottom:22px;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);
+  animation:up .7s ease both;
+}
+.h-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+.h-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,5.5vw,66px);font-weight:900;line-height:1.0;
+  color:#fff;margin-bottom:18px;letter-spacing:-1px;
+  animation:up .7s .1s ease both;
+}
+.h-title .g{color:var(--gold)}
+.h-title em{font-style:italic}
+.h-desc{
+  font-size:15.5px;line-height:1.8;color:rgba(255,255,255,.45);
+  margin-bottom:34px;max-width:470px;animation:up .7s .2s ease both;
+}
+.h-btns{display:flex;gap:12px;flex-wrap:wrap;animation:up .7s .3s ease both}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--gold);color:var(--ink);padding:14px 28px;
+  border-radius:9px;font-weight:700;font-size:14px;border:none;
+  cursor:pointer;transition:.25s;box-shadow:0 4px 22px rgba(201,168,76,.32);
+}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,.42)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:9px;
+  background:transparent;color:#fff;padding:14px 28px;
+  border-radius:9px;font-weight:600;font-size:14px;
+  border:1.5px solid rgba(255,255,255,.18);cursor:pointer;transition:.25s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.h-stats{display:flex;gap:30px;margin-top:40px;animation:up .7s .4s ease both;flex-wrap:wrap}
+.hs{border-left:2px solid rgba(201,168,76,.3);padding-left:16px}
+.hs-n{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;line-height:1}
+.hs-n span{color:var(--gold)}
+.hs-l{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.5px;text-transform:uppercase;margin-top:4px}
+
+/* Hero chat preview */
+.h-right{animation:fade .9s .3s ease both}
+.prev-card{
+  background:rgba(26,23,68,.55);border:1px solid rgba(201,168,76,.2);
+  border-radius:18px;overflow:hidden;backdrop-filter:blur(20px);
+  box-shadow:0 28px 70px rgba(0,0,0,.4);
+}
+.prev-top{
+  background:rgba(15,13,26,.75);padding:14px 18px;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid rgba(201,168,76,.1);
+}
+.prev-av{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--violet),var(--navy));
+  border:1px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.prev-name{font-size:13.5px;font-weight:700;color:#fff}
+.prev-st{font-size:11px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:5px;margin-top:2px}
+.prev-dot{width:6px;height:6px;background:#34d399;border-radius:50%;animation:pulse 2s infinite}
+.ai-chip{
+  margin-left:auto;background:rgba(201,168,76,.15);
+  border:1px solid rgba(201,168,76,.3);color:var(--gold);
+  font-size:9.5px;font-weight:800;padding:3px 9px;border-radius:99px;letter-spacing:.5px;
+}
+.prev-msgs{padding:14px;display:flex;flex-direction:column;gap:10px}
+.pm{display:flex;gap:8px}.pm.u{flex-direction:row-reverse}
+.pm-av{width:27px;height:27px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.pm-av.b{background:linear-gradient(135deg,var(--violet),var(--navy))}
+.pm-av.u{background:linear-gradient(135deg,var(--gold),var(--amber))}
+.pm-bub{padding:9px 13px;border-radius:11px;font-size:12.5px;line-height:1.6;max-width:84%}
+.pm-bub.b{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.82);border-top-left-radius:3px}
+.pm-bub.u{background:var(--gold);color:var(--ink);font-weight:600;border-top-right-radius:3px}
+.pm-bub strong{color:var(--gold2)}
+.pm-bub.u strong{color:var(--navy)}
+
+/* ─────────────────────────────────────────
+   SECTION BASE
+───────────────────────────────────────── */
+section{padding:88px 5%}
+.s-cream{background:var(--cream)}
+.s-cream2{background:var(--cream2)}
+.s-ink{background:var(--ink)}
+.s-head{text-align:center;margin-bottom:52px}
+.s-eye{
+  font-size:10px;font-weight:700;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--muted);
+}
+.s-eye::before,.s-eye::after{content:'—';margin:0 7px;color:var(--rule)}
+.s-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(24px,3vw,36px);font-weight:800;
+  color:var(--ink);margin:8px 0 10px;line-height:1.15;letter-spacing:-.3px;
+}
+.s-title.lt{color:#fff}
+.s-rule{width:44px;height:2.5px;background:var(--gold);margin:0 auto 12px;border-radius:99px}
+.s-sub{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.75}
+.s-sub.lt{color:rgba(255,255,255,.38)}
+
+/* ─────────────────────────────────────────
+   DOMAINS
+───────────────────────────────────────── */
+.d-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1100px;margin:0 auto}
+@media(max-width:960px){.d-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.d-grid{grid-template-columns:1fr}}
+.d-card{
+  background:var(--white);border:1px solid var(--border);border-radius:13px;
+  padding:22px 18px;position:relative;overflow:hidden;transition:.3s;
+}
+.d-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.d-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--violet)}
+.d-abbr{
+  width:36px;height:36px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;margin-bottom:12px;
+}
+.d-name{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.35;margin-bottom:6px}
+.d-tag{display:inline-block;font-size:9.5px;font-weight:800;padding:3px 8px;border-radius:99px;letter-spacing:.5px;text-transform:uppercase}
+/* domain color classes */
+.dc1::before{background:linear-gradient(90deg,#4c3bcf,#8b7ff5)}.dc2::before{background:linear-gradient(90deg,#1a4fa0,#4a8fe0)}.dc3::before{background:linear-gradient(90deg,#1a6e3a,#34a860)}.dc4::before{background:linear-gradient(90deg,#8a5500,#d4830a)}.dc5::before{background:linear-gradient(90deg,#b82040,#e85070)}.dc6::before{background:linear-gradient(90deg,#a8207a,#e050a0)}.dc7::before{background:linear-gradient(90deg,#0a7498,#20a8cc)}.dc8::before{background:linear-gradient(90deg,#3a36b0,#6a66e0)}
+
+/* ─────────────────────────────────────────
+   FEES & TIMINGS
+───────────────────────────────────────── */
+.ft-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;max-width:1100px;margin:0 auto}
+@media(max-width:780px){.ft-grid{grid-template-columns:1fr}}
+.ft-box{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.ft-hd{background:var(--ink);padding:18px 24px;display:flex;align-items:center;gap:13px}
+.ft-hd-ic{width:40px;height:40px;border-radius:9px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:18px}
+.ft-hd-t{font-size:15px;font-weight:700;color:#fff}
+.ft-hd-s{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px}
+.fee-list,.time-list{padding:18px 20px;display:flex;flex-direction:column;gap:11px}
+.fee-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;border-radius:10px;border:1px solid var(--border);transition:.22s;
+}
+.fee-row:hover{border-color:var(--violet);box-shadow:0 4px 14px rgba(76,59,207,.08);transform:translateX(4px)}
+.fee-row.best{border-color:var(--violet);background:var(--lv)}
+.fee-l{display:flex;align-items:center;gap:11px}
+.fee-ic{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.fee-dur{font-size:14px;font-weight:700;color:var(--ink)}
+.fee-note{font-size:11px;color:var(--muted);margin-top:1px}
+.fee-price{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--violet)}
+.best-tag{font-size:9px;font-weight:800;background:var(--violet);color:#fff;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:middle}
+.t-row{
+  display:flex;align-items:center;gap:13px;
+  padding:13px 16px;border-radius:10px;border:1px solid var(--border);transition:.22s;
+}
+.t-row:hover{border-color:var(--teal);box-shadow:0 4px 14px rgba(13,122,110,.08);transform:translateX(4px)}
+.t-num{width:27px;height:27px;border-radius:7px;background:var(--ink);color:var(--gold);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.t-time{font-size:14.5px;font-weight:700;color:var(--ink)}
+.t-lbl{font-size:11px;color:var(--muted);margin-top:1px}
+.t-av{margin-left:auto;font-size:10px;font-weight:700;background:var(--lg);border:1px solid rgba(26,110,58,.2);color:var(--green);padding:3px 8px;border-radius:99px;white-space:nowrap}
+
+/* ─────────────────────────────────────────
+   CHATBOT
+───────────────────────────────────────── */
+.chat-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.7fr;gap:48px;align-items:start}
+@media(max-width:900px){.chat-wrap{grid-template-columns:1fr}}
+.chat-side h3{font-family:'Playfair Display',serif;font-size:25px;font-weight:800;color:#fff;margin-bottom:10px}
+.chat-side p{font-size:14px;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:20px}
+.chat-feats{display:flex;flex-direction:column;gap:11px}
+.cf{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 15px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);border-radius:10px;
+}
+.cf-ic{width:30px;height:30px;border-radius:7px;background:rgba(201,168,76,.1);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.cf-t{font-size:13px;font-weight:700;color:#fff}
+.cf-d{font-size:11.5px;color:rgba(255,255,255,.3);margin-top:2px}
+
+.chatbox{background:var(--white);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.cb-top{
+  background:var(--ink);padding:13px 17px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(201,168,76,.12);
+}
+.cb-av{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--violet),var(--navy));border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.cb-name{font-size:13.5px;font-weight:700;color:#fff}
+.cb-st{font-size:11px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:5px;margin-top:2px}
+.cb-dot{width:6px;height:6px;background:#34d399;border-radius:50%;animation:pulse 2s infinite}
+
+#msgArea{height:390px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:11px;background:var(--cream)}
+#msgArea::-webkit-scrollbar{width:4px}
+#msgArea::-webkit-scrollbar-thumb{background:var(--rule);border-radius:99px}
+.msg{display:flex;gap:9px;animation:up .3s ease both}.msg.u{flex-direction:row-reverse}
+.msg-av{width:29px;height:29px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.msg-av.b{background:linear-gradient(135deg,var(--violet),var(--navy))}
+.msg-av.u{background:linear-gradient(135deg,var(--gold),var(--amber))}
+.msg-bub{padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.65;max-width:82%}
+.msg-bub.b{background:var(--white);border:1px solid var(--border);border-top-left-radius:3px;color:var(--ink)}
+.msg-bub.u{background:var(--ink);color:#fff;border-top-right-radius:3px}
+.msg-bub strong{color:var(--violet);font-weight:700}
+.msg-bub.u strong{color:var(--gold)}
+.msg-bub .t{display:inline-block;background:var(--lv);color:var(--violet);font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;margin:2px 2px 0 0}
+.msg-time{font-size:10px;color:var(--muted);margin-top:3px;padding:0 2px}
+.typing{display:flex;gap:9px}
+.typing-bub{display:flex;align-items:center;gap:4px;padding:11px 15px;background:var(--white);border:1px solid var(--border);border-radius:12px;border-top-left-radius:3px}
+.typing-bub span{width:7px;height:7px;background:var(--violet);border-radius:50%;animation:tdot 1.2s infinite}
+.typing-bub span:nth-child(2){animation-delay:.2s}.typing-bub span:nth-child(3){animation-delay:.4s}
+.chips{padding:9px 13px;display:flex;gap:6px;flex-wrap:wrap;background:var(--cream2);border-top:1px solid var(--border)}
+.chip{padding:6px 12px;border-radius:99px;border:1px solid var(--border);background:var(--white);color:var(--violet);font-size:11.5px;font-weight:600;cursor:pointer;transition:.18s;white-space:nowrap}
+.chip:hover{background:var(--violet);color:#fff;border-color:var(--violet)}
+.cin{display:flex;gap:9px;align-items:center;padding:11px 13px;border-top:1px solid var(--border);background:var(--white)}
+#ci{flex:1;border:1.5px solid var(--border);border-radius:9px;padding:9px 13px;font-size:13px;outline:none;color:var(--ink);resize:none;height:40px;background:var(--cream);transition:.2s}
+#ci:focus{border-color:var(--violet)}
+#cs{width:40px;height:40px;background:var(--ink);color:var(--gold);border:none;border-radius:9px;font-size:15px;cursor:pointer;transition:.2s;flex-shrink:0}
+#cs:hover{background:var(--violet);transform:scale(1.05)}
+
+/* ─────────────────────────────────────────
+   AI BROCHURE — STAR SECTION
+───────────────────────────────────────── */
+#brochure{background:var(--cream2);position:relative;overflow:hidden}
+#brochure::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);
+}
+.bro-wrap{max-width:1100px;margin:0 auto}
+
+/* stepper */
+.bro-steps{display:flex;gap:0;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto}
+.bro-step{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  position:relative;opacity:.4;transition:.3s;
+}
+.bro-step.active,.bro-step.done{opacity:1}
+.bro-step:not(:last-child)::after{
+  content:'';position:absolute;top:18px;left:calc(50% + 18px);
+  right:calc(-50% + 18px);height:2px;background:var(--rule);z-index:0;
+}
+.bro-step.done:not(:last-child)::after{background:var(--gold)}
+.bro-step-num{
+  width:36px;height:36px;border-radius:50%;border:2px solid var(--rule);
+  background:var(--cream2);color:var(--muted);
+  font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;transition:.3s;
+}
+.bro-step.active .bro-step-num{border-color:var(--gold);background:var(--gold);color:var(--ink)}
+.bro-step.done .bro-step-num{border-color:var(--green);background:var(--green);color:#fff}
+.bro-step-lbl{font-size:10px;font-weight:700;color:var(--muted);margin-top:6px;text-align:center;letter-spacing:.3px}
+.bro-step.active .bro-step-lbl{color:var(--ink)}
+
+/* main card */
+.bro-card{
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);
+}
+.bro-card-top{
+  background:var(--ink);padding:22px 28px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.bro-card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:800;color:#fff}
+.bro-card-sub{font-size:12px;color:rgba(255,255,255,.35);margin-top:2px}
+.ai-stamp{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);
+  padding:6px 13px;border-radius:99px;
+}
+.ai-stamp-ic{width:8px;height:8px;background:var(--gold);border-radius:50%;animation:blink 2s infinite}
+.ai-stamp-t{font-size:10.5px;font-weight:800;color:var(--gold);letter-spacing:.5px}
+
+/* form */
+.bro-form-body{padding:28px}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+@media(max-width:620px){.f-grid{grid-template-columns:1fr}}
+.f-full{grid-column:1/-1}
+.f-group{display:flex;flex-direction:column;gap:6px}
+.f-label{font-size:12px;font-weight:700;color:var(--ink);letter-spacing:.2px}
+.f-label sup{color:var(--rose)}
+.f-in,.f-sel,.f-ta{
+  border:1.5px solid var(--border);border-radius:9px;
+  padding:11px 14px;font-size:13.5px;color:var(--ink);
+  background:var(--cream);outline:none;transition:.2s;
+  width:100%;
+}
+.f-in:focus,.f-sel:focus,.f-ta:focus{border-color:var(--violet);background:var(--white);box-shadow:0 0 0 3px rgba(76,59,207,.07)}
+.f-sel{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath fill='%237a7260' d='M6 7L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:36px;cursor:pointer}
+.f-ta{resize:vertical;min-height:78px;line-height:1.6}
+
+.gen-btn{
+  width:100%;padding:16px;background:var(--ink);color:var(--gold);
+  border:2px solid var(--gold);border-radius:12px;
+  font-family:'Playfair Display',serif;font-size:17px;font-weight:800;
+  letter-spacing:.3px;cursor:pointer;transition:.28s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  animation:glow 3s ease infinite;
+}
+.gen-btn:hover{background:var(--gold);color:var(--ink);box-shadow:0 8px 28px rgba(201,168,76,.35)}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;animation:none}
+.g-spinner{width:18px;height:18px;border:2.5px solid rgba(201,168,76,.3);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;display:none;flex-shrink:0}
+
+/* AI thinking animation */
+.ai-thinking{
+  padding:24px 28px;
+  border-top:1px solid var(--border);
+  display:none;
+}
+.ai-think-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.ai-think-ic{width:34px;height:34px;border-radius:9px;background:var(--lv);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ai-think-lines{display:flex;flex-direction:column;gap:6px;flex:1}
+.ai-think-bar{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--lv),var(--border));background-size:200% 100%;animation:shimmer 1.5s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.ai-think-bar:nth-child(2){width:70%}
+.ai-think-bar:nth-child(3){width:85%}
+.ai-think-status{font-size:12px;color:var(--muted);font-style:italic}
+
+/* output */
+.bro-output{display:none;border-top:1px solid var(--border)}
+.bro-out-header{
+  padding:16px 28px;
+  background:linear-gradient(135deg,rgba(76,59,207,.05),rgba(201,168,76,.05));
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  border-bottom:1px solid var(--border);
+}
+.bro-out-title{font-size:14px;font-weight:700;color:var(--ink)}
+.bro-out-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+.bro-out-acts{display:flex;gap:8px}
+.act-btn{
+  padding:8px 15px;border-radius:8px;
+  font-size:12.5px;font-weight:700;border:none;cursor:pointer;transition:.2s;
+}
+.act-print{background:var(--ink);color:var(--gold)}
+.act-print:hover{background:var(--navy)}
+.act-copy{background:var(--lv);color:var(--violet);border:1px solid rgba(76,59,207,.2)}
+.act-copy:hover{background:var(--violet);color:#fff}
+.act-reset{background:var(--cream2);color:var(--muted);border:1px solid var(--border)}
+.act-reset:hover{background:var(--cream);color:var(--ink)}
+
+/* the actual generated brochure */
+#bOut{padding:32px 28px;max-height:600px;overflow-y:auto;font-size:14px;line-height:1.8}
+#bOut::-webkit-scrollbar{width:4px}
+#bOut::-webkit-scrollbar-thumb{background:var(--rule)}
+
+/* brochure internal styles */
+.br-wrap{}
+.br-header{
+  background:var(--ink);border-radius:14px;padding:26px 28px;
+  margin-bottom:22px;border-left:4px solid var(--gold);
+  position:relative;overflow:hidden;
+}
+.br-header::after{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:150px;height:150px;border-radius:50%;
+  background:rgba(76,59,207,.15);
+}
+.br-header-inner{position:relative;z-index:1}
+.br-co{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.br-stu-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:4px}
+.br-tagline{font-size:13px;color:rgba(255,255,255,.45)}
+.br-date{
+  margin-top:10px;display:inline-block;
+  background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);
+  color:var(--gold);font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;
+}
+.br-section{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:14px}
+.br-section.hl{background:var(--lv);border-color:rgba(76,59,207,.2)}
+.br-section.gold-hl{background:var(--la);border-color:rgba(201,168,76,.25)}
+.br-sh{
+  font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.br-sh::after{content:'';flex:1;height:1px;background:var(--border)}
+.br-sh.v{color:var(--violet)}.br-sh.v::after{background:rgba(76,59,207,.2)}
+.br-sh.g{color:var(--amber)}.br-sh.g::after{background:rgba(201,168,76,.2)}
+.br-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.br-body{font-size:13.5px;color:var(--muted);line-height:1.8}
+.br-body strong{color:var(--ink);font-weight:700}
+.br-list{list-style:none;padding:0;margin:10px 0;display:flex;flex-direction:column;gap:6px}
+.br-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted)}
+.br-list li::before{content:'→';color:var(--gold);font-weight:800;flex-shrink:0;margin-top:2px}
+.br-summary{
+  background:var(--ink);border-radius:12px;padding:22px 24px;margin-top:18px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+}
+@media(max-width:480px){.br-summary{grid-template-columns:1fr}}
+.br-sum-item{}
+.br-sum-label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:3px}
+.br-sum-val{font-size:14px;font-weight:700;color:#fff}
+.br-sum-val.gold{color:var(--gold)}
+.br-footer{
+  background:var(--cream2);border:1px solid var(--border);border-radius:10px;
+  padding:14px 18px;margin-top:14px;text-align:center;
+  font-size:12.5px;color:var(--muted);line-height:1.7;
+}
+.br-footer strong{color:var(--ink)}
+.br-seal{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--lv);border:1px solid rgba(76,59,207,.2);
+  padding:6px 14px;border-radius:99px;margin-top:8px;
+  font-size:11px;font-weight:700;color:var(--violet);
+}
+
+/* empty state */
+.bro-empty{padding:48px 28px;text-align:center;color:var(--muted);border-top:1px solid var(--border)}
+.bro-empty-ic{font-size:44px;margin-bottom:12px;opacity:.35}
+.bro-empty-t{font-size:14px;line-height:1.7}
+.bro-empty-t strong{color:var(--ink)}
+
+/* ─────────────────────────────────────────
+   CTA & FOOTER
+───────────────────────────────────────── */
+.cta-s{background:var(--ink);padding:70px 5%;text-align:center;position:relative;overflow:hidden}
+.cta-s::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 50% 110%,rgba(76,59,207,.14) 0%,transparent 60%)}
+.cta-inner{position:relative;z-index:1;max-width:560px;margin:0 auto}
+.cta-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,38px);font-weight:800;color:#fff;margin-bottom:12px}
+.cta-title span{color:var(--gold)}
+.cta-sub{font-size:15px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:28px}
+.cta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:32px}
+@media(max-width:480px){.cta-grid{grid-template-columns:1fr}}
+.cta-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:16px}
+.cta-item-l{font-size:9.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:4px}
+.cta-item-v{font-size:14px;font-weight:700;color:#fff}
+
+footer{
+  background:var(--ink);border-top:2px solid var(--gold);
+  padding:26px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.f-brand{font-family:'Playfair Display',serif;font-size:16px;font-weight:800;color:#fff}
+.f-brand span{color:var(--gold)}
+.f-copy{font-size:11.5px;color:rgba(255,255,255,.2)}
+
+/* ─────────────────────────────────────────
+   PRINT
+───────────────────────────────────────── */
+@media print{
+  nav,#chatbot,.cta-s,footer,
+  .bro-steps,.bro-card-top,
+  .bro-form-body,.ai-thinking,
+  .bro-out-header,#domains,
+  #fees,.s-head{display:none!important}
+  #brochure{padding:0!important}
+  #bOut{max-height:none!important;overflow:visible!important;padding:0!important}
+  .bro-card{border:none!important;box-shadow:none!important}
+  body{background:white}
+  .bro-output{display:block!important;border-top:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="n-logo">
+    <div class="n-box">NG</div>
+    <div class="n-name">Nextgen <b>Technologies</b></div>
+  </div>
+  <ul class="n-links">
+    <li><a href="#domains">Domains</a></li>
+    <li><a href="#fees">Fees</a></li>
+    <li><a href="#chatbot">Assistant</a></li>
+    <li><a href="#brochure">AI Brochure</a></li>
+    <li><a href="#contact" class="n-cta">Walk In Today</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="h-bg"></div><div class="h-grid"></div>
+  <div class="h-inner">
+    <div>
+      <div class="h-eyebrow"><span class="h-dot"></span>Nextgen Technologies · 2025</div>
+      <h1 class="h-title">Build Your<br><em class="g">Career</em><br>With Us</h1>
+      <p class="h-desc">8 internship domains. Real projects. Flexible batch timings. Walk in and start your journey — your personalized brochure is ready in seconds.</p>
+      <div class="h-btns">
+        <button class="btn-gold" onclick="document.getElementById('brochure').scrollIntoView({behavior:'smooth'})">✨ Generate My Brochure</button>
+        <button class="btn-ghost" onclick="document.getElementById('domains').scrollIntoView({behavior:'smooth'})">📚 View Domains</button>
+      </div>
+      <div class="h-stats">
+        <div class="hs"><div class="hs-n">8<span>+</span></div><div class="hs-l">Domains</div></div>
+        <div class="hs"><div class="hs-n">3</div><div class="hs-l">Fee Plans</div></div>
+        <div class="hs"><div class="hs-n">4</div><div class="hs-l">Batches</div></div>
+      </div>
+    </div>
+    <div class="h-right">
+      <div class="prev-card">
+        <div class="prev-top">
+          <div class="prev-av">🎓</div>
+          <div><div class="prev-name">Nextgen Assistant</div><div class="prev-st"><span class="prev-dot"></span>Ready to help</div></div>
+          <div class="ai-chip">SMART AI</div>
+        </div>
+        <div class="prev-msgs">
+          <div class="pm"><div class="pm-av b">🎓</div><div class="pm-bub b">Welcome! Ask about <strong>fees, batches & domains</strong> — or get your personal brochure! ✨</div></div>
+          <div class="pm u"><div class="pm-av u">👤</div><div class="pm-bub u">3 month fee?</div></div>
+          <div class="pm"><div class="pm-av b">🎓</div><div class="pm-bub b"><strong>₹8,000</strong> for 3 months — includes project, offer letter & certificate 🏅</div></div>
+          <div class="pm u"><div class="pm-av u">👤</div><div class="pm-bub u">Morning batch time?</div></div>
+          <div class="pm"><div class="pm-av b">🎓</div><div class="pm-bub b"><strong>9:30 AM – 11:30 AM</strong> daily. 4 slots available!</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAINS -->
+<section id="domains" class="s-cream2">
+  <div class="s-head">
+    <div class="s-eye">Specializations</div>
+    <h2 class="s-title">8 Internship Domains</h2>
+    <div class="s-rule"></div>
+    <p class="s-sub" style="margin-top:10px">Choose your track and build industry-ready skills with real project experience.</p>
+  </div>
+  <div class="d-grid">
+    <div class="d-card dc1"><div class="d-abbr" style="background:var(--lv);color:var(--violet)">DA</div><div class="d-name">Data Analytics</div><div class="d-tag" style="background:var(--lv);color:var(--violet)">HOT 🔥</div></div>
+    <div class="d-card dc2"><div class="d-abbr" style="background:var(--lb);color:var(--blue)">DS</div><div class="d-name">Data Science & Machine Learning</div><div class="d-tag" style="background:var(--lb);color:var(--blue)">TRENDING ⚡</div></div>
+    <div class="d-card dc3"><div class="d-abbr" style="background:var(--lg);color:var(--green)">PY</div><div class="d-name">Python Full Stack Development</div><div class="d-tag" style="background:var(--lg);color:var(--green)">POPULAR ⭐</div></div>
+    <div class="d-card dc4"><div class="d-abbr" style="background:var(--la);color:var(--amber)">JV</div><div class="d-name">Java Full Stack Development</div><div class="d-tag" style="background:var(--la);color:var(--amber)">POPULAR ⭐</div></div>
+    <div class="d-card dc5"><div class="d-abbr" style="background:var(--lr);color:var(--rose)">DV</div><div class="d-name">DevOps</div><div class="d-tag" style="background:var(--lr);color:var(--rose)">IN DEMAND 💼</div></div>
+    <div class="d-card dc6"><div class="d-abbr" style="background:var(--lp);color:var(--pink)">HR</div><div class="d-name">HR & Marketing</div><div class="d-tag" style="background:var(--lp);color:var(--pink)">OPEN ✅</div></div>
+    <div class="d-card dc7"><div class="d-abbr" style="background:var(--lc);color:var(--cyan)">BA</div><div class="d-name">Business Analytics</div><div class="d-tag" style="background:var(--lc);color:var(--cyan)">OPEN ✅</div></div>
+    <div class="d-card dc8"><div class="d-abbr" style="background:var(--li);color:var(--indigo)">BI</div><div class="d-name">Business Intelligence</div><div class="d-tag" style="background:var(--li);color:var(--indigo)">OPEN ✅</div></div>
+  </div>
+</section>
+
+<!-- FEES & TIMINGS -->
+<section id="fees" class="s-cream">
+  <div class="s-head">
+    <div class="s-eye">Pricing & Schedule</div>
+    <h2 class="s-title">Fees & Batch Timings</h2>
+    <div class="s-rule"></div>
+    <p class="s-sub" style="margin-top:10px">Every plan includes a real-time project, offer letter, and completion certificate.</p>
+  </div>
+  <div class="ft-grid">
+    <div class="ft-box">
+      <div class="ft-hd"><div class="ft-hd-ic">💰</div><div><div class="ft-hd-t">Duration & Fees</div><div class="ft-hd-s">All 3 benefits included in every plan</div></div></div>
+      <div class="fee-list">
+        <div class="fee-row"><div class="fee-l"><div class="fee-ic" style="background:var(--lg)">📅</div><div><div class="fee-dur">1 Month</div><div class="fee-note">4 Weeks · Starter</div></div></div><div class="fee-price">₹3,000</div></div>
+        <div class="fee-row"><div class="fee-l"><div class="fee-ic" style="background:var(--lb)">🗓️</div><div><div class="fee-dur">2 Months</div><div class="fee-note">8 Weeks · Standard</div></div></div><div class="fee-price">₹6,000</div></div>
+        <div class="fee-row best"><div class="fee-l"><div class="fee-ic" style="background:var(--lv)">🏆</div><div><div class="fee-dur">3 Months<span class="best-tag">BEST</span></div><div class="fee-note">12 Weeks · Full Program</div></div></div><div class="fee-price">₹8,000</div></div>
+        <div style="background:var(--cream2);border:1px solid var(--border);border-radius:9px;padding:11px 14px;font-size:12.5px;color:var(--muted)">✅ All plans: <strong style="color:var(--ink)">Real Project · Offer Letter · Certificate</strong></div>
+      </div>
+    </div>
+    <div class="ft-box">
+      <div class="ft-hd"><div class="ft-hd-ic">🕐</div><div><div class="ft-hd-t">Daily Batch Timings</div><div class="ft-hd-s">4 slots — pick what fits your schedule</div></div></div>
+      <div class="time-list">
+        <div class="t-row"><div class="t-num">01</div><div><div class="t-time">9:30 AM – 11:30 AM</div><div class="t-lbl">Morning Batch · 2 Hours</div></div><div class="t-av">Available</div></div>
+        <div class="t-row"><div class="t-num">02</div><div><div class="t-time">11:30 AM – 1:00 PM</div><div class="t-lbl">Late Morning · 1.5 Hours</div></div><div class="t-av">Available</div></div>
+        <div class="t-row"><div class="t-num">03</div><div><div class="t-time">2:00 PM – 4:00 PM</div><div class="t-lbl">Afternoon Batch · 2 Hours</div></div><div class="t-av">Available</div></div>
+        <div class="t-row"><div class="t-num">04</div><div><div class="t-time">4:00 PM – 6:00 PM</div><div class="t-lbl">Evening Batch · 2 Hours</div></div><div class="t-av">Available</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHATBOT -->
+<section id="chatbot" class="s-ink">
+  <div class="s-head">
+    <div class="s-eye" style="color:rgba(255,255,255,.28)">Smart Assistant</div>
+    <h2 class="s-title lt">Ask Anything</h2>
+    <div class="s-rule"></div>
+    <p class="s-sub lt" style="margin-top:10px">Instant answers. No waiting. Ask in any way you like.</p>
+  </div>
+  <div class="chat-wrap">
+    <div class="chat-side">
+      <h3>Your Internship<br>Guide — Always On</h3>
+      <p>Smart keyword engine — knows every detail about Nextgen's programs. Ask in Tamil, English, or mix both.</p>
+      <div class="chat-feats">
+        <div class="cf"><div class="cf-ic">📚</div><div><div class="cf-t">All 8 Domains</div><div class="cf-d">Full descriptions & recommendations</div></div></div>
+        <div class="cf"><div class="cf-ic">💰</div><div><div class="cf-t">Fee Details</div><div class="cf-d">₹3,000 / ₹6,000 / ₹8,000</div></div></div>
+        <div class="cf"><div class="cf-ic">🕐</div><div><div class="cf-t">Batch Timings</div><div class="cf-d">4 daily slots explained</div></div></div>
+        <div class="cf"><div class="cf-ic">🧭</div><div><div class="cf-t">Recommendations</div><div class="cf-d">Matched to your background</div></div></div>
+      </div>
+    </div>
+    <div class="chatbox">
+      <div class="cb-top">
+        <div style="display:flex;align-items:center;gap:11px">
+          <div class="cb-av">🎓</div>
+          <div><div class="cb-name">Nextgen Assistant</div><div class="cb-st"><span class="cb-dot"></span>Always available</div></div>
+        </div>
+        <div class="ai-chip">LIVE</div>
+      </div>
+      <div id="msgArea">
+        <div class="msg">
+          <div class="msg-av b">🎓</div>
+          <div>
+            <div class="msg-bub b">👋 <strong>Vanakkam!</strong> I'm Nextgen's smart assistant.<br><br>Ask me anything:<br>
+            <span class="t">📚 Domains</span><span class="t">💰 Fees</span><span class="t">🕐 Timings</span><span class="t">🎁 Benefits</span></div>
+            <div class="msg-time">Just now</div>
+          </div>
+        </div>
+      </div>
+      <div class="chips" id="chipRow">
+        <button class="chip" onclick="fireQ('What are the fees?')">💰 Fees?</button>
+        <button class="chip" onclick="fireQ('What domains are offered?')">📚 Domains?</button>
+        <button class="chip" onclick="fireQ('Batch timings?')">🕐 Timings?</button>
+        <button class="chip" onclick="fireQ('Training benefits?')">🎁 Benefits?</button>
+        <button class="chip" onclick="fireQ('Which domain suits me?')">🧭 Recommend?</button>
+      </div>
+      <div class="cin">
+        <textarea id="ci" placeholder="Ask about fees, domains, timings…" rows="1"></textarea>
+        <button id="cs" onclick="sendMsg()">➤</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+   AI BROCHURE GENERATOR
+══════════════════════════════════════════ -->
+<section id="brochure">
+  <div class="s-head">
+    <div class="s-eye">Personalized For You</div>
+    <h2 class="s-title">AI Brochure Generator</h2>
+    <div class="s-rule"></div>
+    <p class="s-sub" style="margin-top:10px">Fill your details — our smart engine creates a personalized internship brochure just for you. Instant. Free. No internet needed.</p>
+  </div>
+  <div class="bro-wrap">
+
+    <!-- Progress Steps -->
+    <div class="bro-steps" id="stepIndicator">
+      <div class="bro-step active" id="step1"><div class="bro-step-num">1</div><div class="bro-step-lbl">Your Details</div></div>
+      <div class="bro-step" id="step2"><div class="bro-step-num">2</div><div class="bro-step-lbl">Processing</div></div>
+      <div class="bro-step" id="step3"><div class="bro-step-num">3</div><div class="bro-step-lbl">Your Brochure</div></div>
+    </div>
+
+    <div class="bro-card">
+      <!-- Card Header -->
+      <div class="bro-card-top">
+        <div>
+          <div class="bro-card-title">✦ Personalized Internship Brochure</div>
+          <div class="bro-card-sub">Tailored to your profile in seconds</div>
+        </div>
+        <div class="ai-stamp">
+          <div class="ai-stamp-ic"></div>
+          <div class="ai-stamp-t">SMART ENGINE ACTIVE</div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="bro-form-body" id="formSection">
+        <div class="f-grid">
+          <div class="f-group">
+            <label class="f-label">Student Name <sup>*</sup></label>
+            <input class="f-in" id="fName" type="text" placeholder="Your full name"/>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Educational Background <sup>*</sup></label>
+            <input class="f-in" id="fEdu" type="text" placeholder="e.g. B.Tech CSE, BCA, MBA…"/>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Area of Interest <sup>*</sup></label>
+            <select class="f-sel" id="fInterest">
+              <option value="">Select your interest</option>
+              <option value="data">Data & Analytics (Excel, SQL, Reports)</option>
+              <option value="ai">Artificial Intelligence & Machine Learning</option>
+              <option value="web">Web Development (Build Websites & Apps)</option>
+              <option value="devops">DevOps & Cloud (Servers, Automation)</option>
+              <option value="business">Business & Management</option>
+              <option value="hr">HR & Marketing</option>
+              <option value="bi">Business Intelligence (Dashboards, Power BI)</option>
+              <option value="unsure">Not Sure — Need Guidance</option>
+            </select>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Preferred Duration</label>
+            <select class="f-sel" id="fDuration">
+              <option value="">Select duration</option>
+              <option value="1">1 Month — ₹3,000</option>
+              <option value="2">2 Months — ₹6,000</option>
+              <option value="3">3 Months — ₹8,000 (Best Value)</option>
+              <option value="unsure">Not Sure Yet</option>
+            </select>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Preferred Batch Time</label>
+            <select class="f-sel" id="fBatch">
+              <option value="">Select batch slot</option>
+              <option value="morning">Morning — 9:30 AM to 11:30 AM</option>
+              <option value="late">Late Morning — 11:30 AM to 1:00 PM</option>
+              <option value="afternoon">Afternoon — 2:00 PM to 4:00 PM</option>
+              <option value="evening">Evening — 4:00 PM to 6:00 PM</option>
+              <option value="flexible">Flexible — Any slot works</option>
+            </select>
+          </div>
+          <div class="f-group">
+            <label class="f-label">Current Skill Level</label>
+            <select class="f-sel" id="fLevel">
+              <option value="">Select level</option>
+              <option value="beginner">Complete Beginner</option>
+              <option value="basic">Basic Knowledge</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+          <div class="f-group f-full">
+            <label class="f-label">Your Career Goal</label>
+            <textarea class="f-ta" id="fGoal" placeholder="e.g. I want to get a software job, build a project for my portfolio, clear a placement interview…"></textarea>
+          </div>
+        </div>
+        <button class="gen-btn" id="genBtn" onclick="generateBrochure()">
+          <div class="g-spinner" id="gSpinner"></div>
+          <span id="genBtnTxt">✦ Generate My Personalized Brochure</span>
+        </button>
+      </div>
+
+      <!-- AI Thinking animation -->
+      <div class="ai-thinking" id="thinkingSection">
+        <div class="ai-think-row">
+          <div class="ai-think-ic">🧠</div>
+          <div class="ai-think-lines">
+            <div class="ai-think-bar"></div>
+            <div class="ai-think-bar"></div>
+            <div class="ai-think-bar"></div>
+          </div>
+        </div>
+        <div class="ai-think-status" id="thinkStatus">Analysing your profile…</div>
+      </div>
+
+      <!-- Output -->
+      <div class="bro-output" id="outputSection">
+        <div class="bro-out-header">
+          <div>
+            <div class="bro-out-title">✅ Your Personalized Brochure is Ready!</div>
+            <div class="bro-out-sub">Generated instantly · Tailored to your profile</div>
+          </div>
+          <div class="bro-out-acts">
+            <button class="act-btn act-reset" onclick="resetBrochure()">↩ New</button>
+            <button class="act-btn act-copy" onclick="copyBrochure()">📋 Copy</button>
+            <button class="act-btn act-print" onclick="window.print()">🖨️ Print</button>
+          </div>
+        </div>
+        <div id="bOut"></div>
+      </div>
+
+      <!-- Empty state -->
+      <div class="bro-empty" id="emptyState">
+        <div class="bro-empty-ic">✦</div>
+        <div class="bro-empty-t">Fill in your details above and click <strong>Generate</strong><br>Your brochure is ready in seconds — no internet required.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-s">
+  <div class="cta-inner">
+    <h2 class="cta-title">Ready to <span>Walk In?</span></h2>
+    <p class="cta-sub">Visit our training center. Talk to a counsellor. Start your internship as early as this week.</p>
+    <button class="btn-gold" onclick="document.getElementById('brochure').scrollIntoView({behavior:'smooth'})" style="margin:0 auto">✨ Generate Your Brochure First</button>
+    <div class="cta-grid">
+      <div class="cta-item"><div class="cta-item-l">Company</div><div class="cta-item-v">Nextgen Technologies</div></div>
+      <div class="cta-item"><div class="cta-item-l">Unit</div><div class="cta-item-v">A Unit of GB Tech Corp</div></div>
+      <div class="cta-item" style="grid-column:1/-1"><div class="cta-item-l">Specialization</div><div class="cta-item-v">Software Training · Internship · Placement</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Nextgen <span>Technologies</span></div>
+  <div class="f-copy">© 2025 · A Unit of GB Tech Corp</div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+   JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+/* ─── CHATBOT ENGINE ─────────────────────── */
+const KB = {
+  fees:{k:['fee','fees','cost','price','charge','pay','rupee','₹','how much','1 month','2 month','3 month','one month','two month','three month','duration','plan','package'],r:`💰 <strong>Internship Fees</strong><br><br><span class="t">1 Month</span> → <strong>₹3,000</strong> · 4 Weeks<br><span class="t">2 Months</span> → <strong>₹6,000</strong> · 8 Weeks<br><span class="t">3 Months</span> → <strong>₹8,000</strong> · Best Value ⭐<br><br>✅ All plans: Real Project + Offer Letter + Certificate`},
+  timings:{k:['timing','time','batch','schedule','slot','morning','afternoon','evening','9:30','11:30','2:00','4:00','when','class'],r:`🕐 <strong>Daily Batch Timings</strong><br><br><span class="t">Slot 1</span> <strong>9:30 AM – 11:30 AM</strong><br><span class="t">Slot 2</span> <strong>11:30 AM – 1:00 PM</strong><br><span class="t">Slot 3</span> <strong>2:00 PM – 4:00 PM</strong><br><span class="t">Slot 4</span> <strong>4:00 PM – 6:00 PM</strong><br><br>4 slots available daily 📌`},
+  domains:{k:['domain','course','field','subject','which course','available','list','all domain','what course','program'],r:`📚 <strong>8 Internship Domains</strong><br><br>🔥 <strong>Data Analytics</strong><br>⚡ <strong>Data Science & ML</strong><br>⭐ <strong>Python Full Stack</strong><br>⭐ <strong>Java Full Stack</strong><br>💼 <strong>DevOps</strong><br>✅ <strong>HR & Marketing</strong><br>✅ <strong>Business Analytics</strong><br>✅ <strong>Business Intelligence</strong><br><br>Tell me your interest for a recommendation!`},
+  benefits:{k:['benefit','include','certificate','project','offer letter','real time','what do i get','completion','training','provide'],r:`🎁 <strong>Benefits — All Plans</strong><br><br>🏗️ <strong>Real-Time Project</strong> — Industry-grade work<br>📄 <strong>Offer Letter</strong> — Issued on day 1<br>🏅 <strong>Completion Certificate</strong> — For your resume<br><br>These 3 come with every plan!`},
+  recommend:{k:['recommend','suggest','which','best','right','suit','choose','career','data','python','java','devops','business','hr','ml','ai','analytics','unsure'],r:`🧭 <strong>Domain Recommendation</strong><br><br>📊 <strong>Love data & numbers?</strong> → Data Analytics<br>🤖 <strong>Into AI/Python?</strong> → Data Science & ML<br>🌐 <strong>Want to build apps?</strong> → Python/Java Full Stack<br>⚙️ <strong>Automation?</strong> → DevOps<br>📈 <strong>Business bg?</strong> → Business Analytics / BI<br>🤝 <strong>Non-technical?</strong> → HR & Marketing`},
+  greet:{k:['hi','hello','hey','vanakkam','hai','good morning','good afternoon','start','help'],r:`👋 <strong>Vanakkam! Welcome to Nextgen!</strong><br><br>I can help with:<br><span class="t">📚 Domains</span><span class="t">💰 Fees</span><span class="t">🕐 Timings</span><span class="t">🎁 Benefits</span><br><br>Or scroll up for your <strong>personalized AI brochure</strong>! ✨`},
+  thanks:{k:['thank','thanks','helpful','great','awesome','perfect','superb','correct'],r:`😊 Happy to help! Ask anything else about Nextgen's programs.`}
+};
+function matchBot(m){
+  const low=m.toLowerCase(); let best=null,score=0;
+  for(const[k,v] of Object.entries(KB)){let s=0;for(const kw of v.k)if(low.includes(kw))s+=kw.length>3?2:1;if(s>score){score=s;best=k}}
+  return score>0?KB[best].r:`🤔 Try asking about <strong>fees, domains, timings, or benefits</strong>. Or scroll up to generate your brochure! ✨`;
+}
+function tNow(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
+function addMsg(role,html){
+  const isU=role==='user';
+  const a=document.getElementById('msgArea');
+  const d=document.createElement('div');
+  d.className=`msg ${isU?'u':''}`;
+  const c=isU?html.replace(/</g,'&lt;'):html;
+  d.innerHTML=`<div class="msg-av ${isU?'u':'b'}">${isU?'👤':'🎓'}</div><div><div class="msg-bub ${isU?'u':'b'}">${c}</div><div class="msg-time">${isU?'You':'Bot'} · ${tNow()}</div></div>`;
+  a.appendChild(d);a.scrollTop=a.scrollHeight;
+}
+function showTyping(){const a=document.getElementById('msgArea');const d=document.createElement('div');d.className='typing';d.id='tRow';d.innerHTML=`<div class="msg-av b">🎓</div><div class="typing-bub"><span></span><span></span><span></span></div>`;a.appendChild(d);a.scrollTop=a.scrollHeight}
+function rmTyping(){const e=document.getElementById('tRow');if(e)e.remove()}
+function sendMsg(){
+  const inp=document.getElementById('ci');const t=inp.value.trim();if(!t)return;
+  inp.value='';inp.style.height='auto';
+  addMsg('user',t);
+  document.getElementById('chipRow').style.display='none';
+  showTyping();
+  setTimeout(()=>{rmTyping();addMsg('bot',matchBot(t))},350+Math.random()*380);
+}
+function fireQ(q){document.getElementById('ci').value=q;sendMsg()}
+document.getElementById('ci').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg()}});
+document.getElementById('ci').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,100)+'px'});
+
+/* ─── AI BROCHURE ENGINE ─────────────────── */
+const DOMAINS = {
+  data:     {name:'Data Analytics',            abbr:'DA',fee1:'₹3,000',fee2:'₹6,000',fee3:'₹8,000',tools:'Excel, SQL, Power BI, Tableau, Python',job:'Data Analyst, Business Analyst, Reporting Analyst',why:'Your interest in data and analytics aligns perfectly with this domain. Data Analytics is the most in-demand skill in today\'s job market.'},
+  ai:       {name:'Data Science & Machine Learning', abbr:'DS',fee1:'₹3,000',fee2:'₹6,000',fee3:'₹8,000',tools:'Python, Pandas, NumPy, Scikit-learn, Jupyter Notebook',job:'Data Scientist, ML Engineer, AI Developer',why:'Your passion for AI and intelligent systems makes this the ideal domain. Machine Learning is reshaping every industry.'},
+  web:      {name:'Python Full Stack Development',  abbr:'PY',fee1:'₹3,000',fee2:'₹6,000',fee3:'₹8,000',tools:'Python, Django/Flask, HTML, CSS, JavaScript, MySQL',job:'Python Developer, Full Stack Engineer, Web Developer',why:'Your interest in building applications fits perfectly with Python Full Stack. You will build complete web applications from scratch.'},
+  devops:   {name:'DevOps',                         abbr:'DV',fee1:'₹3,000',fee2:'₹6,000',fee3:'₹8,000',tools:'Linux, Docker, Jenkins, Git, AWS, CI/CD pipelines',job:'DevOps Engineer, Cloud Engineer, Site Reliability Engineer',why:'DevOps is the backbone of modern software development. Your interest in automation and infrastructure is exactly what this domain demands.'},
+  business: {name:'Business Analytics',             abbr:'BA',fee1:'₹3,000',fee2:'₹6,000',fee3:'₹8,000',tools:'Excel, SQL, Power BI, Tableau, Business Strategy',job:'Business Analyst, Strategy Analyst, Operations Analyst',why:'Your business-oriented mindset is ideal for Business Analytics. This domain bridges data skills with real business decision-making.'},
+  hr:       {name:'HR & Marketing',                 abbr:'HR',fee1:'₹3,000',fee2:'₹6,000',fee3:'₹8,000',tools:'HR Management, Digital Marketing, Social Media, CRM tools',job:'HR Executive, Marketing Analyst, Brand Manager',why:'Your interest in people and communication makes HR & Marketing the perfect fit. This domain develops both technical and soft skills.'},
+  bi:       {name:'Business Intelligence',          abbr:'BI',fee1:'₹3,000',fee2:'₹6,000',fee3:'₹8,000',tools:'Power BI, Tableau, SQL, DAX, Data Warehousing',job:'BI Developer, Data Analyst, Dashboard Developer',why:'Your interest in dashboards and business insights makes Business Intelligence ideal. Companies need skilled BI professionals urgently.'},
+  unsure:   {name:'Data Analytics',                 abbr:'DA',fee1:'₹3,000',fee2:'₹6,000',fee3:'₹8,000',tools:'Excel, SQL, Power BI, Python basics',job:'Data Analyst, Business Analyst, Reporting Specialist',why:'After analysing your profile, Data Analytics is the perfect starting point. It is beginner-friendly, highly in demand, and opens doors across all industries.'}
+};
+const BATCH_MAP = {
+  morning:'9:30 AM – 11:30 AM (Morning)',
+  late:'11:30 AM – 1:00 PM (Late Morning)',
+  afternoon:'2:00 PM – 4:00 PM (Afternoon)',
+  evening:'4:00 PM – 6:00 PM (Evening)',
+  flexible:'Any available slot'
+};
+const FEE_MAP = {
+  '1':'1 Month — ₹3,000',
+  '2':'2 Months — ₹6,000',
+  '3':'3 Months — ₹8,000',
+  unsure:'3 Months — ₹8,000 (Recommended)'
+};
+const LEVEL_TIPS = {
+  beginner:'Since you are starting fresh, our structured curriculum will take you from zero to job-ready step by step. No prior experience is needed.',
+  basic:'With your basic knowledge, you will quickly move past the fundamentals and start working on real applications within the first week.',
+  intermediate:'Your existing skills will help you progress faster. You will spend more time on advanced concepts and real-world problem-solving.',
+  advanced:'Your strong background means you will dive directly into complex, industry-level projects and advanced techniques from day one.',
+  '':''
+};
+const DURATION_REASONING = {
+  '1':'The 1-month program gives you a solid foundation and a completion certificate. Perfect for getting started quickly.',
+  '2':'The 2-month program provides deeper learning with more project exposure — ideal for building a strong portfolio.',
+  '3':'The 3-month full program is our most comprehensive offering. You will gain in-depth knowledge, a complete project, and the strongest certificate. This is what we recommend for maximum career impact.',
+  unsure:'We recommend the 3-month program for maximum career impact. It gives you the deepest knowledge, the strongest project, and the most recognized certificate.'
+};
+const MOTIVATIONS = [
+  'Your career journey starts the moment you walk through our doors. We are committed to making sure you leave with skills that employers actually want.',
+  'Success belongs to those who take the first step. Your decision to pursue this internship shows exactly the kind of initiative that sets top professionals apart.',
+  'Every expert was once a beginner. At Nextgen, we have helped hundreds of students like you transform their passion into a career. You are next.',
+  'The best time to invest in yourself is now. This internship will not just add a certificate to your resume — it will change how you approach problems.',
+  'Your background is your foundation. We will build on it and take you further than you thought possible in this time frame.'
+];
+function getFeeAmount(dur){const map={'1':'₹3,000','2':'₹6,000','3':'₹8,000',unsure:'₹8,000'};return map[dur]||'₹8,000'}
+function todayDate(){const d=new Date();return d.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'})}
+
+function generateBrochure(){
+  const name=document.getElementById('fName').value.trim();
+  const edu=document.getElementById('fEdu').value.trim();
+  const interest=document.getElementById('fInterest').value;
+  const duration=document.getElementById('fDuration').value;
+  const batch=document.getElementById('fBatch').value;
+  const level=document.getElementById('fLevel').value;
+  const goal=document.getElementById('fGoal').value.trim();
+
+  if(!name){alert('Please enter your name!');document.getElementById('fName').focus();return}
+  if(!interest){alert('Please select your area of interest!');document.getElementById('fInterest').focus();return}
+
+  // step transition
+  setStep(2);
+  document.getElementById('emptyState').style.display='none';
+  document.getElementById('formSection').style.display='none';
+  document.getElementById('thinkingSection').style.display='block';
+  document.getElementById('outputSection').style.display='none';
+
+  const thinkMsgs=['Analysing your profile…','Matching the best domain for you…','Calculating ideal fee plan…','Crafting your personalized message…','Finalising your brochure…'];
+  let ti=0;
+  const tInt=setInterval(()=>{
+    document.getElementById('thinkStatus').textContent=thinkMsgs[ti]||'Almost done…';
+    ti++;
+  },600);
+
+  setTimeout(()=>{
+    clearInterval(tInt);
+    const d=DOMAINS[interest]||DOMAINS['unsure'];
+    const feeLabel=FEE_MAP[duration]||FEE_MAP['unsure'];
+    const feeAmt=getFeeAmount(duration);
+    const batchLabel=BATCH_MAP[batch]||'Flexible — any available slot';
+    const levelTip=LEVEL_TIPS[level]||'';
+    const durReason=DURATION_REASONING[duration]||DURATION_REASONING['unsure'];
+    const motivation=MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)];
+    const firstName=name.split(' ')[0];
+
+    const goalLine=goal?`<br><br>Your goal — <em>"${goal}"</em> — is completely achievable with the right training. This domain will put you directly on that path.`:'';
+    const eduLine=edu?`<br><br>With your background in <strong>${edu}</strong>, you already have the discipline and academic foundation to excel in this field.`:'';
+    const levelLine=levelTip?`<br><br>${levelTip}`:'';
+
+    const html=`
+<div class="br-wrap">
+  <div class="br-header">
+    <div class="br-header-inner">
+      <div class="br-co">Nextgen Technologies · A Unit of GB Tech Corp</div>
+      <div class="br-stu-name">Dear ${name},</div>
+      <div class="br-tagline">Your personalized internship brochure is ready. We are delighted to welcome you.</div>
+      <div class="br-date">📅 Generated on ${todayDate()}</div>
+    </div>
+  </div>
+
+  <div class="br-section hl">
+    <div class="br-sh v">⭐ RECOMMENDED DOMAIN FOR YOU</div>
+    <div class="br-title">${d.name}</div>
+    <div class="br-body">${d.why}${goalLine}${eduLine}${levelLine}<br><br><strong>Tools & Technologies you will learn:</strong> ${d.tools}</div>
+  </div>
+
+  <div class="br-section">
+    <div class="br-sh">💰 YOUR FEE PLAN</div>
+    <div class="br-title">${feeLabel}</div>
+    <div class="br-body">${durReason}<br><br><strong>Everything included in your plan:</strong></div>
+    <ul class="br-list">
+      <li>One complete <strong>Real-Time Industry Project</strong> — portfolio ready</li>
+      <li><strong>Course Offer Letter</strong> — official, issued on your first day</li>
+      <li><strong>Internship Completion Certificate</strong> — recognized by employers</li>
+    </ul>
+  </div>
+
+  <div class="br-section">
+    <div class="br-sh">🕐 YOUR BATCH TIMING</div>
+    <div class="br-title">${batchLabel}</div>
+    <div class="br-body">Your selected batch slot will be reserved upon enrollment. We have 4 daily slots to ensure you can attend without disrupting your current schedule.</div>
+  </div>
+
+  <div class="br-section gold-hl">
+    <div class="br-sh g">🚀 WHAT YOU WILL GAIN</div>
+    <div class="br-body"><strong>As a ${d.name} intern at Nextgen, here is what you will walk away with:</strong></div>
+    <ul class="br-list">
+      <li>Job-ready skills in <strong>${d.tools.split(',').slice(0,3).join(', ')}</strong> and more</li>
+      <li>A complete real-world project to show in interviews</li>
+      <li>Career guidance towards roles like <strong>${d.job}</strong></li>
+      <li>An industry-recognized certificate and official offer letter</li>
+      <li>Confidence to clear technical interviews and assessment rounds</li>
+    </ul>
+  </div>
+
+  <div class="br-section">
+    <div class="br-sh">💬 A PERSONAL MESSAGE FOR YOU</div>
+    <div class="br-body">${firstName}, ${motivation}<br><br>We look forward to being part of your success story. Walk in today and let us get started.</div>
+  </div>
+
+  <div class="br-summary">
+    <div class="br-sum-item"><div class="br-sum-label">Student</div><div class="br-sum-val">${name}</div></div>
+    <div class="br-sum-item"><div class="br-sum-label">Recommended Domain</div><div class="br-sum-val gold">${d.name}</div></div>
+    <div class="br-sum-item"><div class="br-sum-label">Duration & Fee</div><div class="br-sum-val">${feeLabel}</div></div>
+    <div class="br-sum-item"><div class="br-sum-label">Batch Slot</div><div class="br-sum-val">${batchLabel}</div></div>
+    <div class="br-sum-item"><div class="br-sum-label">Availability</div><div class="br-sum-val gold">Available Immediately</div></div>
+    <div class="br-sum-item"><div class="br-sum-label">Brochure Date</div><div class="br-sum-val">${todayDate()}</div></div>
+  </div>
+
+  <div class="br-footer">
+    <strong>Nextgen Technologies</strong> · A Unit of GB Tech Corp<br>
+    Software Training · Internship · Placement<br>
+    <div class="br-seal">✦ Official Personalized Brochure · ${todayDate()}</div>
+  </div>
+</div>`;
+
+    document.getElementById('thinkingSection').style.display='none';
+    document.getElementById('bOut').innerHTML=html;
+    document.getElementById('outputSection').style.display='block';
+    document.getElementById('outputSection').scrollIntoView({behavior:'smooth',block:'start'});
+    setStep(3);
+  },3200);
+}
+
+function setStep(n){
+  for(let i=1;i<=3;i++){
+    const s=document.getElementById('step'+i);
+    s.classList.remove('active','done');
+    if(i<n)s.classList.add('done');
+    else if(i===n)s.classList.add('active');
+    if(n===3&&i===3){
+      s.querySelector('.bro-step-num').textContent='✓';
+      s.classList.remove('active');
+      s.classList.add('done');
+    }
+  }
+}
+
+function resetBrochure(){
+  document.getElementById('outputSection').style.display='none';
+  document.getElementById('thinkingSection').style.display='none';
+  document.getElementById('emptyState').style.display='none';
+  document.getElementById('formSection').style.display='block';
+  setStep(1);
+  document.getElementById('brochure').scrollIntoView({behavior:'smooth'});
+}
+
+function copyBrochure(){
+  const t=document.getElementById('bOut').innerText;
+  navigator.clipboard.writeText(t)
+    .then(()=>{alert('✅ Brochure copied to clipboard!')})
+    .catch(()=>{alert('Please select and copy the brochure text manually.')});
+}
+</script>
+</body>
+</html>
